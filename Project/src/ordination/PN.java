@@ -10,8 +10,9 @@ public class PN extends Ordination {
 
     private final Map<LocalDate, Integer> ordinationer = new HashMap<>();
 
-    public PN(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel) {
+    public PN(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel, double antalEnheder) {
         super(startDen, slutDen, patient, laegemiddel);
+        this.antalEnheder = antalEnheder;
     }
 
     /**
@@ -51,7 +52,7 @@ public class PN extends Ordination {
 
 
     public double samletDosis() {
-         return getAntalGangeGivet() * antalEnheder;
+        return getAntalGangeGivet() * antalEnheder;
     }
 
     /**
@@ -61,7 +62,7 @@ public class PN extends Ordination {
      */
     public int getAntalGangeGivet() {
         int samletGivet = 0;
-        for (Integer antal : ordinationer.values()){
+        for (Integer antal : ordinationer.values()) {
             samletGivet += antal;
         }
         return samletGivet;
