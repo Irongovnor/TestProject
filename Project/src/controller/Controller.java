@@ -51,8 +51,9 @@ public class Controller {
 			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
 			double morgenAntal, double middagAntal, double aftenAntal,
 			double natAntal) {
-		// TODO
-		return null;
+		DagligFast dagligFast=new DagligFast(startDen, slutDen, patient, laegemiddel, morgenAntal, middagAntal, aftenAntal, natAntal);
+		checkStartFoerSlut(startDen, slutDen);
+		return dagligFast;
 	}
 
 	/**
@@ -66,8 +67,12 @@ public class Controller {
 	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDen,
 			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
 			LocalTime[] klokkeSlet, double[] antalEnheder) {
-		// TODO
-		return null;
+		DagligSkaev dagligSkaev=new DagligSkaev(startDen, slutDen, patient, laegemiddel, klokkeSlet, antalEnheder);
+		checkStartFoerSlut(startDen, slutDen);
+		if(klokkeSlet.length!=antalEnheder.length){
+				throw new IllegalArgumentException("Datoen ligger uden for den tilladte doseringsperiode");
+		}
+		return dagligSkaev;
 	}
 
 	/**
@@ -112,7 +117,7 @@ public class Controller {
 		int ordinationer = 0;
 		for (Patient p : storage.getAllPatienter()){
 			if (p.getVaegt() >= vægtStart && p.getVaegt() <= vægtSlut){
-				for (Ordination ordination : p.getOrdinations()){
+				for (Ordination ordination : p.getOrdinationer()){
 					if (ordination.getLaegemiddel() == laegemiddel){
 						ordinationer += ordination.samletDosis();
 					}

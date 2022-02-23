@@ -16,7 +16,7 @@ public class DagligFast extends Ordination {
         doses[0]=new Dosis(LocalTime.of(8, 00), morgenAntal);
         doses[1]=new Dosis(LocalTime.of(12, 00), middagAntal);
         doses[2]=new Dosis(LocalTime.of(18, 00), aftenAntal);
-        doses[3]=new Dosis(LocalTime.of(24, 00), natAntal);
+        doses[3]=new Dosis(LocalTime.of(23, 00), natAntal);
     }
     @Override
     public double samletDosis() {
@@ -41,5 +41,7 @@ public class DagligFast extends Ordination {
         return getLaegemiddel().getNavn();
     }
 
-
+    public Dosis[] getDoser() {
+        return doses;
+    }
 }
