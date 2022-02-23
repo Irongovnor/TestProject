@@ -28,7 +28,7 @@ public abstract class Ordination {
 
     public LocalDate getStartDen() {
         return startDen;
-    }	
+    }
 
     public LocalDate getSlutDen() {
         return slutDen;
@@ -36,6 +36,7 @@ public abstract class Ordination {
 
     /**
      * Antal hele dage mellem startdato og slutdato. Begge dage inklusive.
+     *
      * @return antal dage ordinationen gælder for
      */
     public int antalDage() {
@@ -64,4 +65,8 @@ public abstract class Ordination {
      * @return
      */
     public abstract String getType();
+
+    public Laegemiddel getLaegemiddel(){
+        return laegemiddel;
+    }
 }
