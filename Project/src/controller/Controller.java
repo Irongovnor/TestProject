@@ -90,8 +90,6 @@ public class Controller {
 	public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
 		if (!ordination.givDosis(dato)){
 			throw new IllegalArgumentException("Datoen ligger uden for den tilladte doseringsperiode");
-		} else {
-			ordination.givDosis(dato);
 		}
 	}
 

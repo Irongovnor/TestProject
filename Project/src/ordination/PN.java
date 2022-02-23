@@ -1,14 +1,14 @@
 package ordination;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class PN extends Ordination {
 
     private double antalEnheder;
 
-    private final Map<LocalDate, Integer> ordinationer = new HashMap<>();
+    private final Map<LocalDate, Integer> ordinationer = new TreeMap<>();
 
     public PN(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel, double antalEnheder) {
         super(startDen, slutDen, patient, laegemiddel);
@@ -26,7 +26,7 @@ public class PN extends Ordination {
     public boolean givDosis(LocalDate givesDen) {
         boolean doneringGivet = false;
         if (givesDen.compareTo(getStartDen()) >= 0 && givesDen.compareTo(getSlutDen()) <= 0) {
-            if (ordinationer.get(givesDen) == null) {
+            if (!ordinationer.containsKey(givesDen)) {
                 ordinationer.put(givesDen, 1);
             } else {
                 ordinationer.put(givesDen, ordinationer.get(givesDen) + 1);
@@ -37,7 +37,15 @@ public class PN extends Ordination {
     }
 
     public double doegnDosis() {
-        return samletDosis() / getAntalGangeGivet();
+        double dosis = 0;
+        ArrayList<LocalDate> datoer = new ArrayList<>();
+        for (LocalDate date : ordinationer.keySet()) {
+            datoer.add(date);
+        }
+        if (datoer.size() > 0) {
+            dosis = getAntalGangeGivet() * antalEnheder / (ChronoUnit.DAYS.between(datoer.get(0), datoer.get(datoer.size() - 1)) + 1);
+        }
+        return dosis;
     }
 
     /**
