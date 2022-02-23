@@ -55,7 +55,9 @@ public class Controller {
 			double morgenAntal, double middagAntal, double aftenAntal,
 			double natAntal) {
 		DagligFast dagligFast=new DagligFast(startDen, slutDen, patient, laegemiddel, morgenAntal, middagAntal, aftenAntal, natAntal);
-		checkStartFoerSlut(startDen, slutDen);
+		if(!checkStartFoerSlut(startDen, slutDen)){
+			throw new IllegalArgumentException("Slutperioden ligger uden for den valgte startperioden");
+		}
 		return dagligFast;
 	}
 
@@ -71,9 +73,10 @@ public class Controller {
 			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
 			LocalTime[] klokkeSlet, double[] antalEnheder) {
 		DagligSkaev dagligSkaev=new DagligSkaev(startDen, slutDen, patient, laegemiddel, klokkeSlet, antalEnheder);
-		checkStartFoerSlut(startDen, slutDen);
 		if(klokkeSlet.length!=antalEnheder.length){
-				throw new IllegalArgumentException("Datoen ligger uden for den tilladte doseringsperiode");
+				throw new IllegalArgumentException("Klokkeslet og antal enheder skal begge udfyldes");
+		} else if (!checkStartFoerSlut(startDen, slutDen)){
+			throw new IllegalArgumentException("Slutperioden ligger uden for den valgte startperioden");
 		}
 		return dagligSkaev;
 	}
