@@ -6,8 +6,8 @@ public class Patient {
     private String cprnr;
     private String navn;
     private double vaegt;
-    private final ArrayList<Ordination>ordinations=new ArrayList<>();
-    // TODO: Link til Ordination
+    private final ArrayList<Ordination> ordinations = new ArrayList<>();
+
     public Patient(String cprnr, String navn, double vaegt) {
         this.cprnr = cprnr;
         this.navn = navn;
@@ -26,28 +26,32 @@ public class Patient {
         this.navn = navn;
     }
 
-    public double getVaegt(){
+    public double getVaegt() {
         return vaegt;
     }
 
-    public void setVaegt(double vaegt){
+    public void setVaegt(double vaegt) {
         this.vaegt = vaegt;
     }
 
-    //TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
-    public void addOrdination(Ordination ordination){
-        if(!ordinations.contains(ordination)){
+    public void addOrdination(Ordination ordination) {
+        if (!ordinations.contains(ordination)) {
             ordinations.add(ordination);
         }
     }
 
-    public void removeOrdination(Ordination ordination){
-        if(ordinations.contains(ordination)){
+    public void removeOrdination(Ordination ordination) {
+        if (ordinations.contains(ordination)) {
             ordinations.remove(ordination);
         }
     }
+
+    public ArrayList<Ordination> getOrdinations() {
+        return new ArrayList<>(ordinations);
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return navn + "  " + cprnr;
     }
 

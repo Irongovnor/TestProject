@@ -4,12 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import storage.Storage;
+
+import javax.sound.midi.Soundbank;
 
 public class Controller {
 	private Storage storage;
@@ -79,7 +77,11 @@ public class Controller {
 	 * Pre: ordination og dato er ikke null
 	 */
 	public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
-		// TODO
+		if (!ordination.givDosis(dato)){
+			throw new IllegalArgumentException("Datoen ligger uden for den tilladte doseringsperiode");
+		} else {
+			ordination.givDosis(dato);
+		}
 	}
 
 	/**
@@ -89,8 +91,15 @@ public class Controller {
 	 * Pre: patient og lægemiddel er ikke null
 	 */
 	public double anbefaletDosisPrDoegn(Patient patient, Laegemiddel laegemiddel) {
-		//TODO
-		return 0;
+		double dosis;
+		if (patient.getVaegt() < 26){
+			dosis = laegemiddel.getEnhedPrKgPrDoegnLet();
+		} else if (patient.getVaegt() < 121) {
+			dosis = laegemiddel.getEnhedPrKgPrDoegnNormal();
+		} else {
+			dosis = laegemiddel.getEnhedPrKgPrDoegnTung();
+		}
+		return dosis;
 	}
 
 	/**
@@ -100,8 +109,17 @@ public class Controller {
 	 */
 	public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart,
 			double vægtSlut, Laegemiddel laegemiddel) {
-		// TODO
-		return 0;
+		int ordinationer = 0;
+		for (Patient p : storage.getAllPatienter()){
+			if (p.getVaegt() >= vægtStart && p.getVaegt() <= vægtSlut){
+				for (Ordination ordination : p.getOrdinations()){
+					if (ordination.getLaegemiddel() == laegemiddel){
+						ordinationer += ordination.samletDosis();
+					}
+				}
+			}
+		}
+		return ordinationer;
 	}
 
 	public List<Patient> getAllPatienter() {
