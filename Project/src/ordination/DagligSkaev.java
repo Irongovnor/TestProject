@@ -2,6 +2,7 @@ package ordination;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class DagligSkaev extends Ordination{
@@ -28,7 +29,7 @@ public class DagligSkaev extends Ordination{
     public double samletDosis() {
         double sum=0;
         for (Dosis dose : doses) {
-            sum += dose.getAntal();
+            sum+=dose.getAntal()*(ChronoUnit.DAYS.between(getStartDen(),getSlutDen())+1);
         }
         return sum;
     }
@@ -37,7 +38,7 @@ public class DagligSkaev extends Ordination{
     public double doegnDosis() {
         double sum=0;
         for (Dosis dose : doses) {
-            sum += dose.getAntal();
+            sum+=dose.getAntal()*(ChronoUnit.DAYS.between(getStartDen(),getSlutDen())+1);
         }
         return sum/antalDage();
     }

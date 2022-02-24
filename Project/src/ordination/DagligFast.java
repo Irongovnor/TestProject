@@ -22,7 +22,7 @@ public class DagligFast extends Ordination {
     public double samletDosis() {
         double sum=0;
         for (Dosis dose : doses) {
-            sum += dose.getAntal();
+            sum += dose.getAntal()*(ChronoUnit.DAYS.between(getStartDen(),getSlutDen())+1);
         }
         return sum;
     }
@@ -31,7 +31,7 @@ public class DagligFast extends Ordination {
     public double doegnDosis() {
         double sum=0;
         for (Dosis dose : doses) {
-            sum += dose.getAntal();
+            sum+=dose.getAntal()*(ChronoUnit.DAYS.between(getStartDen(),getSlutDen())+1);
         }
         return sum/antalDage();
     }
