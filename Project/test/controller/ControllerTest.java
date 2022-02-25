@@ -62,6 +62,8 @@ class ControllerTest {
 
     @Test
     void antalOrdinationerPrVægtPrLægemiddel() {
+        //TC22
+        //tester om den giver det den skal
         Patient patient= controller.opretPatient("121256-0512", "Jane Jensen", 63.4);
         Patient patient2= controller.opretPatient("070985-1153", "Finn Madsen", 83.2);
         Patient patient3= controller.opretPatient("050972-1233", "Hans Jørgensen", 89.4);
