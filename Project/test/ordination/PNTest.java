@@ -21,6 +21,8 @@ class PNTest {
 
     @Test
     void givDosis() {
+        // TC-13
+        // 2 doser pr gang givet
         assertTrue(pn.givDosis(LocalDate.of(2022, 2, 25)));
         assertTrue(pn.givDosis(LocalDate.of(2022, 2, 28)));
         assertTrue(pn.givDosis(LocalDate.of(2022, 3, 2)));
@@ -28,7 +30,10 @@ class PNTest {
 
     @Test
     void doegnDosis() {
+        //TC-3
+        // 3 doser taget
         assertEquals(1, pn.doegnDosis());
+        // 6 doser taget
         pn.givDosis(LocalDate.of(2022, 2, 28));
         pn.givDosis(LocalDate.of(2022, 2, 28));
         pn.givDosis(LocalDate.of(2022, 2, 28));
